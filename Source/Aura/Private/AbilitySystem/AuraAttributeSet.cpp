@@ -2,8 +2,44 @@
 
 #include "AbilitySystem/AuraAttributeSet.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
+#include "GameFramework/Character.h"
 #include "AbilitySystemComponent.h"
 #include "Net/UnrealNetwork.h"
+#include "GameplayEffectExtension.h"
+
+void FEffectProperties::Set(const FGameplayEffectModCallbackData& Data)
+{
+	// Source = causer of the effect, Target = target of the effect (owner of this AS)
+	EffectContextHandle = Data.EffectSpec.GetContext();
+
+	SourceASC = EffectContextHandle.GetInstigatorAbilitySystemComponent();
+	if (IsValid(SourceASC) && SourceASC->AbilityActorInfo.IsValid() && SourceASC->AbilityActorInfo->AvatarActor.IsValid())
+	{
+		SourceAvatarActor = SourceASC->AbilityActorInfo->AvatarActor.Get();
+		SourceController = SourceASC->AbilityActorInfo->PlayerController.Get();
+		if (!SourceController)
+		{
+			if (APawn* Pawn = Cast<APawn>(SourceAvatarActor))
+			{
+				SourceController = Pawn->GetController();
+			}
+		}
+
+		if (SourceController)
+		{
+			SourceCharacter = Cast<ACharacter>(SourceController->GetPawn());
+		}
+	}
+
+	if (Data.Target.AbilityActorInfo.IsValid() && Data.Target.AbilityActorInfo->AvatarActor.IsValid())
+	{
+		TargetAvatarActor = Data.Target.AbilityActorInfo->AvatarActor.Get();
+		TargetCharacter = Cast<ACharacter>(TargetAvatarActor);
+		TargetController = Data.Target.AbilityActorInfo->PlayerController.Get();
+		TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetAvatarActor);
+	}
+}
 
 UAuraAttributeSet::UAuraAttributeSet()
 {
@@ -36,6 +72,14 @@ void UAuraAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, 
 	{
 		NewValue = FMath::Clamp(NewValue, 0, GetMaxMana());
 	}
+}
+
+void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
+{
+	Super::PostGameplayEffectExecute(Data);
+
+	FEffectProperties Props;
+	Props.Set(Data);
 }
 
 void UAuraAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) const
