@@ -11,10 +11,10 @@
  *
  * Singleton containing native Gameplay Tags
  */
-class AURA_API AuraGameplayTags
+class AURA_API FAuraGameplayTags
 {
 public:
-	static AuraGameplayTags& Get();
+	static FAuraGameplayTags& Get();
 
 	void InitializeNativeGameplayTags();
 
@@ -35,6 +35,6 @@ public:
 	FGameplayTag Attributes_Secondary_MaxMana;
 
 private:
-	AuraGameplayTags() = default;
-	~AuraGameplayTags() = default;
+	FAuraGameplayTags() = default;
+	~FAuraGameplayTags() = default;
 };

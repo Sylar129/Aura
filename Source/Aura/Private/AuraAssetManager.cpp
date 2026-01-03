@@ -15,5 +15,5 @@ void UAuraAssetManager::StartInitialLoading()
 {
 	Super::StartInitialLoading();
 
-	AuraGameplayTags::Get().InitializeNativeGameplayTags();
+	FAuraGameplayTags::Get().InitializeNativeGameplayTags();
 }

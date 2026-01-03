@@ -4,13 +4,13 @@
 
 #include "GameplayTagsManager.h"
 
-AuraGameplayTags& AuraGameplayTags::Get()
+FAuraGameplayTags& FAuraGameplayTags::Get()
 {
-	static AuraGameplayTags GameplayTags;
+	static FAuraGameplayTags GameplayTags;
 	return GameplayTags;
 }
 
-void AuraGameplayTags::InitializeNativeGameplayTags()
+void FAuraGameplayTags::InitializeNativeGameplayTags()
 {
 	// Primary Attributes
 	Attributes_Primary_Strength = UGameplayTagsManager::Get().AddNativeGameplayTag(
