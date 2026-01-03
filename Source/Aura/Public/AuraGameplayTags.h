@@ -16,7 +16,9 @@ class AURA_API AuraGameplayTags
 public:
 	static AuraGameplayTags& Get();
 
-	static void InitializeNativeGameplayTags();
+	void InitializeNativeGameplayTags();
+
+	FGameplayTag Attribute_Secondary_Armor;
 
 private:
 	AuraGameplayTags() = default;
