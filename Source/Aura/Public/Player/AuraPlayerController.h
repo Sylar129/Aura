@@ -6,6 +6,8 @@
 #include "GameFramework/PlayerController.h"
 #include "AuraPlayerController.generated.h"
 
+struct FGameplayTag;
+class UAuraInputConfig;
 class IEnemyInterface;
 struct FInputActionValue;
 class UInputMappingContext;
@@ -31,6 +33,10 @@ private:
 	void Move(const FInputActionValue& InputActionValue);
 	void CursorTrace();
 
+	void AbilityInputTagPressed(FGameplayTag InputTag);
+	void AbilityInputTagReleased(FGameplayTag InputTag);
+	void AbilityInputTagHeld(FGameplayTag InputTag);
+
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputMappingContext> AuraContext;
 
@@ -39,4 +45,7 @@ private:
 
 	TScriptInterface<IEnemyInterface> LastActor;
 	TScriptInterface<IEnemyInterface> ThisActor;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	TObjectPtr<UAuraInputConfig> InputConfig;
 };
