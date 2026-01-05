@@ -43,6 +43,9 @@ struct FEffectProperties
 	void Set(const FGameplayEffectModCallbackData& Data);
 };
 
+template <typename T>
+using TStaticFuncPtr = TBaseStaticDelegateInstance<T, FDefaultDelegateUserPolicy>::FFuncPtr;
+
 /**
  *
  */
@@ -57,6 +60,8 @@ public:
 
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
+
+	TMap<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>> TagsToAttributes;
 
 	/**
 	 * Primary Attributes
