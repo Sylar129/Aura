@@ -39,6 +39,8 @@ private:
 	void AbilityInputTagReleased(FGameplayTag InputTag);
 	void AbilityInputTagHeld(FGameplayTag InputTag);
 
+	void AutoRun();
+
 	UAuraAbilitySystemComponent* GetASC();
 
 	UPROPERTY(EditAnywhere, Category = "Input")
@@ -56,7 +58,6 @@ private:
 	UPROPERTY()
 	TObjectPtr<UAuraAbilitySystemComponent> AuraAbilitySystemComponent;
 
-private:
 	FVector CachedDestination = FVector::ZeroVector;
 	float	FollowTime = 0;
 	float	ShortPressThreshold = 0.5f;
