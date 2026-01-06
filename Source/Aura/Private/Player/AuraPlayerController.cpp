@@ -78,7 +78,6 @@ void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 
 void AAuraPlayerController::CursorTrace()
 {
-	FHitResult CursorHit;
 	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
 	if (!CursorHit.bBlockingHit)
 	{
@@ -112,7 +111,6 @@ void AAuraPlayerController::CursorTrace()
 
 void AAuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 {
-	// GEngine->AddOnScreenDebugMessage(1, 3.0f, FColor::Red, *InputTag.ToString());
 	if (InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB))
 	{
 		bTargeting = ThisActor != nullptr;
@@ -141,7 +139,6 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 			for (const FVector& PathPoint : NavPath->PathPoints)
 			{
 				Spline->AddSplinePoint(PathPoint, ESplineCoordinateSpace::World);
-				DrawDebugSphere(GetWorld(), PathPoint, 8, 8, FColor::Green, false, 5);
 			}
 			CachedDestination = NavPath->PathPoints.Last();
 			bAutoRunning = true;
@@ -163,10 +160,9 @@ void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 	}
 
 	FollowTime += GetWorld()->GetDeltaSeconds();
-	FHitResult Hit;
-	if (GetHitResultUnderCursor(ECC_Visibility, false, Hit))
+	if (CursorHit.bBlockingHit)
 	{
-		CachedDestination = Hit.ImpactPoint;
+		CachedDestination = CursorHit.ImpactPoint;
 	}
 
 	if (APawn* ControlledPawn = GetPawn())
