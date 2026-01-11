@@ -41,6 +41,9 @@ private:
 
 	void AutoRun();
 
+	void ShiftPressed();
+	void ShiftReleased();
+
 	UAuraAbilitySystemComponent* GetASC();
 
 	UPROPERTY(EditAnywhere, Category = "Input")
@@ -48,6 +51,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> MoveAction;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> ShiftAction;
 
 	TScriptInterface<IEnemyInterface> LastActor;
 	TScriptInterface<IEnemyInterface> ThisActor;
@@ -65,8 +71,9 @@ private:
 	float	ShortPressThreshold = 0.5f;
 	bool	bAutoRunning = false;
 	UPROPERTY(EditDefaultsOnly)
-	float	AutoRunAcceptanceRadius = 50.0f;
+	float AutoRunAcceptanceRadius = 50.0f;
 	bool  bTargeting = false;
+	bool  bShiftKeyDown = false;
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USplineComponent> Spline;
