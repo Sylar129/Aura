@@ -44,6 +44,8 @@ public:
 
 	FGameplayTag Damage;
 
+	FGameplayTag Effects_HitReact;
+
 private:
 	FAuraGameplayTags() = default;
 	~FAuraGameplayTags() = default;
