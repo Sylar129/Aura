@@ -174,4 +174,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Meta Attributes")
 	FGameplayAttributeData IncomingDamage;
 	ATTRIBUTE_ACCESSORS_BASIC(UAuraAttributeSet, IncomingDamage);
+
+private:
+	void ShowFloatingText(const FEffectProperties& Props, float Damage) const;
 };
