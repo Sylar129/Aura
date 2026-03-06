@@ -167,4 +167,14 @@ public:
 	ATTRIBUTE_ACCESSORS_BASIC(UAuraAttributeSet, Mana);
 	UFUNCTION()
 	void OnRep_Mana(const FGameplayAttributeData& OldMana) const;
+
+	/**
+	 * Meta Attributes
+	 */
+	UPROPERTY(BlueprintReadOnly, Category = "Meta Attributes")
+	FGameplayAttributeData IncomingDamage;
+	ATTRIBUTE_ACCESSORS_BASIC(UAuraAttributeSet, IncomingDamage);
+
+private:
+	void ShowFloatingText(const FEffectProperties& Props, float Damage) const;
 };
